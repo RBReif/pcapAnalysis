@@ -97,3 +97,7 @@ cecho "Cyan" "\n\n Third Party Certificate Pinning detected for $3 \n\n"
 else 
 cecho "Purple" "\n\n NO First Party Certificate Pinning detected for $3 \n\n"
 fi
+
+cecho "White" "\n Starting scripts from original paper for  $3:... \n"
+cecho "Red" "\n Fill in what Syed and Irwin did here: ... \n"
+
