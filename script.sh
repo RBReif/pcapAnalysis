@@ -52,8 +52,19 @@ echo $cmd
 powershell.exe 'C:\"Program Files"\"Wireshark"\tshark.exe' -a duration:$2 -w ./logs/${log} -i ${wiresharkID} host ${wiresharkIP} 
 
 cecho "White" "\n Ended Capture without Proxy."
+
+#date=$(date +%F_%H-%M-%S)
+#logM="$date-$3-MitM.log"
+#echo $logM
+
+# cecho "White" "\n Starting Man-in-the-Middle Proxy. Starting dumping ..."
+# ( powershell.exe "mitmdump" > $logM  ) & sleep $2 ; powershell.exe "Stop-Process -Name mitmdump"
+
 cecho "White" "\n Now start Proxy on Android. Confirm"
 read 
+sleep 10
+wait
+
 
 cecho "White" "\n Starting second Capture with Proxy."
 cecho "White" "\n Create log file for captured pcaps...:"
@@ -75,6 +86,7 @@ date=$(date +%F_%H-%M-%S)
 logM="$date-$3-MitM.log"
 echo $logM
 
+
 cecho "White" "\n Starting Man-in-the-Middle Proxy. Starting dumping ..."
 ( powershell.exe "mitmdump" > $logM  ) & sleep $2 ; powershell.exe "Stop-Process -Name mitmdump"
 
@@ -82,7 +94,14 @@ sleep 3
 wait 
 
 cecho "White" "\n Finished second capture..."
+cecho "White" "\n Finished logging MitmProxy Output..."
+# date=$(date +%F_%H-%M-%S)
+# logM="$date-$3-MitM.log"
+#echo $logM
+
 cecho "White" "\n Starting analyizing..."
+cecho "White" "\n Going to analyze the following amount of lines in the following log file:"
+wc -l $logM
 
 cecho "White" "\n Analyzing for first party certificate pinning for $3:...\n"
 if grep "Client TLS handshake failed." $logM | grep $3 ; then
